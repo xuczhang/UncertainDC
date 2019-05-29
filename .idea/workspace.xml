@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e0e4cb36-bad5-4d05-9eca-17b4918b2c38" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/baseline/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/baseline/baseline_classifiers.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/baseline/bias_random_ranker.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/baseline/transformer_sample.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exp_results/experiment_result_0506.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exp_results/experiment_temp_ctx_result_0520.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exp_results/stored_model.xlsx" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -107,8 +98,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="529">
-              <caret line="117" column="10" selection-start-line="117" selection-start-column="10" selection-end-line="117" selection-end-column="10" />
+            <state relative-caret-position="546">
+              <caret line="118" column="6" selection-start-line="118" selection-start-column="6" selection-end-line="118" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -265,11 +256,6 @@
             <path>
               <item name="UncertainDC" type="b2602c69:ProjectViewProjectNode" />
               <item name="UncertainDC" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="UncertainDC" type="b2602c69:ProjectViewProjectNode" />
-              <item name="UncertainDC" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="UncertainDC" type="b2602c69:ProjectViewProjectNode" />
@@ -517,12 +503,12 @@
       <workItem from="1559067688979" duration="3494000" />
       <workItem from="1559075472866" duration="3201000" />
       <workItem from="1559078724408" duration="6437000" />
-      <workItem from="1559092770613" duration="12905000" />
+      <workItem from="1559092770613" duration="12958000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="303809000" />
+    <option name="totallyTimeSpent" value="303862000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -969,8 +955,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="117" column="10" selection-start-line="117" selection-start-column="10" selection-end-line="117" selection-end-column="10" />
+        <state relative-caret-position="546">
+          <caret line="118" column="6" selection-start-line="118" selection-start-column="6" selection-end-line="118" selection-end-column="6" />
         </state>
       </provider>
     </entry>

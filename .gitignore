@@ -116,3 +116,4 @@ dmypy.json
 snapshot/
 *.swp
 sandbox.py
+.idea/
