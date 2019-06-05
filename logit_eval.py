@@ -10,9 +10,19 @@ import torch.nn.functional as F
 from torch.autograd import Variable
 import numpy as np
 
+
+def uncertainty_score(logit, top_k):
+    score_list = []
+    for idx in range(len(logit)):
+        logit_i = logit[idx].data.cpu().numpy().tolist()
+        indices, L_sorted = zip(*sorted(enumerate(logit_i), key=itemgetter(1), reverse=True))
+        score_i = (top_k * L_sorted[0] - sum(L_sorted[1:top_k + 1])) / top_k
+        score_list.append(score_i)
+    return score_list
+
 ## general evaluation
-def eval(dataset, x_val, y_val, model, args):
-    print("using normal evaluation ...")
+def logit_eval(dataset, x_val, y_val, model, args):
+    print("using logit diff evaluation ...")
     model.eval()
     corrects, avg_loss = 0, 0
     #print(model)
@@ -20,6 +30,7 @@ def eval(dataset, x_val, y_val, model, args):
     y_truth = []
     logit_diff = []
     logit_var = []
+    uncertainty_list = []
     represent_all = torch.FloatTensor()
     target_all = torch.LongTensor()
     val_iter = dataset.gen_minibatch(x_val, y_val, args.batch_size, args, shuffle=True)
@@ -40,10 +51,16 @@ def eval(dataset, x_val, y_val, model, args):
         y_truth += y_truth_cur
         # corrects += (torch.max(logit, 1)
         #              [1].view(target.size()).data == target.data).sum()
-        logit_var_cur = np.var(logit.cpu().data.numpy(), axis=1).tolist()
-        logit_var += logit_var_cur
-        logit_diff_cur = (logit[:, 1] - logit[:, 0]).data.tolist()
-        logit_diff += logit_diff_cur
+        top_k = args.logitev_topk
+        if args.class_num <= top_k:
+            print("Warning: parameter logitev-topk is larger than the class number")
+            top_k = args.class_num - 1
+        uncertainty_cur = uncertainty_score(logit, top_k=top_k)
+        uncertainty_list += uncertainty_cur
+        # logit_var_cur = np.var(logit.cpu().data.numpy(), axis=1).tolist()
+        # logit_var += logit_var_cur
+        # logit_diff_cur = (logit[:, 1] - logit[:, 0]).data.tolist()
+        # logit_diff += logit_diff_cur
         represent_all = torch.cat([represent_all, represent.data.cpu()], 0)
         target_all = torch.cat([target_all, target.data.cpu()], 0)
 
@@ -58,8 +75,8 @@ def eval(dataset, x_val, y_val, model, args):
     if args.use_idk:
         # logit_diff_abs = [abs(x) for x in logit_diff]
         # indices, L_sorted = zip(*sorted(enumerate(logit_diff_abs), key=itemgetter(1), reverse=True))
-
-        indices, L_sorted = zip(*sorted(enumerate(logit_var), key=itemgetter(1), reverse=True))
+        # indices, L_sorted = zip(*sorted(enumerate(logit_var), key=itemgetter(1), reverse=True))
+        indices, L_sorted = zip(*sorted(enumerate(uncertainty_list), key=itemgetter(1), reverse=True))
 
         idk_list = np.arange(0, 0.45, 0.05)
         for idk_ratio in idk_list:
@@ -75,7 +92,7 @@ def eval(dataset, x_val, y_val, model, args):
 
     return f1_score
 
- 
+
 def show_results(dataset, y_truth, y_pred, represent=None, target=None):
 
     class_num = dataset.get_class_num()
@@ -88,7 +105,7 @@ def show_results(dataset, y_truth, y_pred, represent=None, target=None):
         confusion_mat = (sklearn.metrics.confusion_matrix(y_truth, y_pred))
 
         print(accuracy_score, f1_score, prec_score, recall_score, sep='\t')
-        #print(confusion_mat)
+        print(confusion_mat)
         return f1_score
 
     elif class_num > 2:

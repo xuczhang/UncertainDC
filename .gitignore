@@ -117,3 +117,4 @@ snapshot/
 *.swp
 sandbox.py
 .idea/
+.DS_Store
